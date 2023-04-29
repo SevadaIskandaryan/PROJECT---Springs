@@ -2,6 +2,11 @@ public class FT {
     private double[] timeValues;
     private int numHarmonics;
 
+    public FT(double[] x){
+        this.timeValues = x;
+        this.numHarmonics = x.length;
+    }
+
     public FT(double[] timeValues, int numHarmonics) {
         this.timeValues = timeValues;
         this.numHarmonics = numHarmonics;
