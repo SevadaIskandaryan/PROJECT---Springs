@@ -53,6 +53,16 @@ public class Spring {
         return coordinates;
     }
 
+    public Spring inSeries(Spring that) {
+        double k_eq_in = (1 / this.k + 1 / that.k);
+        return new Spring(1/k_eq_in);
+    }
+
+    public Spring inParallel(Spring that) {
+        double k_eq = this.k + that.k;
+        return new Spring(k_eq);
+    }
+
     public static void main(String[] args) {
         System.out.println(); 
         Spring s = new Spring();
@@ -67,5 +77,6 @@ public class Spring {
     and from this sources
     https://physics.stackexchange.com/questions/456892/finding-the-amplitude-of-a-spring-oscillation-given-initial-position-and-velocit#:~:text=You'll%20need%20to%20know,velocity%20to%20determine%20the%20amplitude.&text=%CF%89%3D2%CF%80T%3D2,the%20mass%20of%20the%20mass.
     https://courses.lumenlearning.com/suny-osuniversityphysics/chapter/15-1-simple-harmonic-motion/
-
+    https://en.wikipedia.org/wiki/Series_and_parallel_springs
+    
     */
