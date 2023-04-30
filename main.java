@@ -25,7 +25,7 @@ public class main {
         System.out.println(converter8bit.evaluateBinary(test4, converter8bit.computeFrequencyAmplitude(converter8bit.getSpringExpr(test4), 0, 1, 0.1, 1, 0) ));
 
 
-        
+
         
 
         

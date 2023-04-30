@@ -1,4 +1,6 @@
 import java.util.Stack;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Converter8Bit extends Converter {
 
@@ -9,8 +11,8 @@ public class Converter8Bit extends Converter {
     // 1 with { } and 0 with [] to make in series and parralel connection
     // so it will be {[][]} and not like this {}[][][][]{}
     //but also implemented the other version too.
-    @Override
-    public String getSpringExpr(int[] binary) {
+    
+    public String getSpringExpr1(int[] binary) {
         //101
         int size = binary.length;
         if(size > 8){
@@ -62,8 +64,8 @@ public class Converter8Bit extends Converter {
 
 
 
-    
-    public String getSpringExpr1(int[] binary) {
+    @Override
+    public String getSpringExpr(int[] binary) {
         //101
         int size = binary.length;
         if(size > 8){
@@ -74,8 +76,6 @@ public class Converter8Bit extends Converter {
         expr += "[";
         for (int c : binary) {
             if(c == 1){
-                expr += "{}";
-            }else{
                 expr += "[]";
             }
         }
@@ -88,11 +88,16 @@ public class Converter8Bit extends Converter {
 
     @Override
     public double evaluateBinary(int[] binary, double[] amplitudes) {
+        double[] a = amplitudes.clone();
         int size = binary.length;
         double sum = 0.0;
+
+        Arrays.sort(a);
         for (int i = 0; i < size; i++) {
-            sum += binary[i] * amplitudes[i];
+            System.out.println(a[a.length - 1]);
+            sum += a[a.length - 1]*Math.pow(2,i)*binary[i];
         }
+        
         return sum;
     }
     
