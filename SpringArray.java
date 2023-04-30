@@ -5,7 +5,6 @@ public class SpringArray {
         //{}[]
         Stack<Double> stack = new Stack<>();
         for (char c : springExpr.toCharArray()) {
-            System.out.println(c);
             if (c == '{') {
                 stack.push(-1.0);
             } else if (c == '[') {
@@ -47,7 +46,6 @@ public class SpringArray {
         }
         Stack<Double> stack = new Stack<>();
         for (char c : springExpr.toCharArray()) {
-            System.out.println(c);
             if (c == '{') {
                 stack.push(-1.0);
             } else if (c == '[') {
@@ -89,7 +87,7 @@ public class SpringArray {
         //for testing
         //SpringArray s = new SpringArray();
         
-        //System.out.println(s.equivalentSpring("[]")); // output 1
+        //System.out.println(s.equivalentSpring("{}")); // output 1
         //System.out.println(s.equivalentSpring("[[]{}{}{}]")); // Output: 4
         //System.out.println(s.equivalentSpring("{[][][[][]{}{}]}")); // Output: 0.44444...
         //System.out.println(s.equivalentSpring("[{{[{}]}[{{}[{}]}]}]{{{[{}][{}]}[{}]}[{}]{{}[{}]}}")); // Output: 0.1666666...

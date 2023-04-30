@@ -5,6 +5,10 @@ public class Converter8Bit extends Converter {
 
     //0 - []
     //1 - {}
+    //I was thinking if written 100001 then it should change 
+    // 1 with { } and 0 with [] to make in series and parralel connection
+    // so it will be {[][]} and not like this {}[][][][]{}
+    //but also implemented the other version too.
     @Override
     public String getSpringExpr(int[] binary) {
         //101
@@ -58,10 +62,38 @@ public class Converter8Bit extends Converter {
 
 
 
+    
+    public String getSpringExpr1(int[] binary) {
+        //101
+        int size = binary.length;
+        if(size > 8){
+            throw new UnsupportedOperationException("Binary lenght incorrect");
+        }
+
+        String expr = new String();
+        expr += "[";
+        for (int c : binary) {
+            if(c == 1){
+                expr += "{}";
+            }else{
+                expr += "[]";
+            }
+        }
+        expr += "]";
+        return expr;
+        
+    }
+
+
+
     @Override
     public double evaluateBinary(int[] binary, double[] amplitudes) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluateBinary'");
+        int size = binary.length;
+        double sum = 0.0;
+        for (int i = 0; i < size; i++) {
+            sum += binary[i] * amplitudes[i];
+        }
+        return sum;
     }
     
     
