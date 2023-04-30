@@ -16,30 +16,43 @@ public class Converter8Bit extends Converter {
         boolean braces = false;
         boolean brackets = false;
 
-        String expr = new String();
-        for (int c : binary) {
-            System.out.println(c);
-            if(c == 1){
+        String[] expr = new String[size];
+
+        for(int i=0; i < size -1; i++){
+            if(i ==0 && binary[0] == 1){
+                expr[i] = "{";
+                expr[size-1] = "}";
+                continue;
+            }else if (i ==0 && binary[0] == 0){
+                expr[i] = "[";
+                expr[size-1] = "]";
+                continue;
+            }
+
+            if(binary[i] == 1){
                 if(!braces){
-                    expr +="{";
+                    expr[i] = "{";
                     braces = true;
                 }else{
-                    expr +="}";
+                    expr[i] = "}";
                     braces = false;
                 }
-            }
-            if(c == 0){
+            }else if(binary[i] == 0){
                 if(!brackets){
-                    expr +="[";
+                    expr[i] = "[";
                     brackets = true;
                 }else{
-                    expr +="]";
+                    expr[i] = "]";
                     brackets = false;
                 }
             }
         }
 
-        return expr;
+        String finalExpr = new String();
+        for (String c : expr) {
+            finalExpr += c;
+        }
+        return finalExpr;
         
     }
 
