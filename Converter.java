@@ -1,6 +1,6 @@
-import java.util.List;
-
 public abstract class Converter {
+
+    public abstract String getSpringExpr(int[] binary);
 
     public double[] computeOscillation(String springExpr, Spring[] springs, double t0, double t1, double dt, double x0, double v0){
         SpringArray sa = new SpringArray();
@@ -15,5 +15,6 @@ public abstract class Converter {
         return ft.getAmplitudes();
     }
 
+    public abstract double evaluateBinary(int[] binary, double[] amplitudes);
 
 }
