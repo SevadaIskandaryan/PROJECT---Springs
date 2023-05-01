@@ -26,7 +26,7 @@ public class FT {
                 imag -= timeValues[n] * Math.sin(angle);
             }
 
-            amplitudes[k] = Math.sqrt(real * real + imag * imag) / N;
+            amplitudes[k] = Math.sqrt(real * real + imag * imag);
         }
 
         return amplitudes;
