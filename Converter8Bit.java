@@ -4,6 +4,7 @@ import java.util.Collections;
 
 public class Converter8Bit extends Converter {
 
+    int spring_size = 0;
 
     //0 - []
     //1 - {}
@@ -76,9 +77,18 @@ public class Converter8Bit extends Converter {
         expr += "[";
         for (int c : binary) {
             if(c == 1){
+                spring_size += 1;
                 expr += "[]";
             }
         }
+
+        // for (int c = binary.length -1; c >= 0; c--) {
+        //     if(binary[c] == 1){
+        //         int count = (int) Math.pow(2, binary.length -1 -c);
+        //         expr += "[]".repeat(count);
+        //     }
+        // }
+
         expr += "]";
         return expr;
         
@@ -93,10 +103,10 @@ public class Converter8Bit extends Converter {
         double sum = 0.0;
 
         Arrays.sort(a);
-        for (int i = 0; i < size; i++) {
-            System.out.println(a[a.length - 1]);
-            sum += a[a.length - 1]*Math.pow(2,i)*binary[i];
-        }
+        // for (int i = 0; i < size; i++) {
+        //     sum += a[a.length - 1]*Math.pow(2,i)*binary[i];
+        // }
+        sum = a[a.length - 1];
         
         return sum;
     }

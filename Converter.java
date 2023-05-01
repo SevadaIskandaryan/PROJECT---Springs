@@ -5,6 +5,7 @@ public abstract class Converter {
     public double[] computeOscillation(String springExpr, Spring[] springs, double t0, double t1, double dt, double x0, double v0){
         SpringArray sa = new SpringArray();
         Spring s = sa.equivalentSpring(springExpr, springs);
+        System.out.println(s.getSpring());
         return s.move(t0, t1, dt, x0, v0);
     }
 
