@@ -1,3 +1,5 @@
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
 public class main {
 
     public static Spring[] createSprings(int[] binary){
@@ -6,6 +8,21 @@ public class main {
         for(int j = 0; j < size; j++){
             int bin_c = binary[size-1-j];
             springs[j] = new Spring(bin_c*Math.pow(2,j));
+        }
+        return springs;
+    }
+
+    public static Spring[] createSpringsFloat(int[] binary){
+        int size = binary.length;
+
+        Spring[] springs = new Spring[size];
+        for(int j = 0; j < size; j++){
+            int bin_c = binary[size-1-j];
+            if(j < size/2){
+                springs[j] = new Spring(bin_c*Math.pow(2,j));
+            }else{
+                springs[j] = new Spring(bin_c*Math.pow(2,j-size/2));
+            }
         }
         return springs;
     }
@@ -73,6 +90,13 @@ public class main {
         System.out.println(converterInt.getSpringExpr(test4));
         System.out.println(converterInt.evaluateBinary(test4, converterInt.computeFrequencyAmplitude(converterInt.getSpringExpr(test4),springs44, 0, 1, 0.1, 1, 0) ));
 
-        
+        // System.out.println();
+        // System.out.println("Testing ConverterFloat");
+        // ConverterFloat converterfloat = new ConverterFloat();
+        // test1 = new int[]{1,1,1,0,1,1,0,1,0,0,1,1};
+        // Spring[] springs111 = createSpringsFloat(test1);
+        // System.out.println("test4 -- 1,1,1,0,1,1,0,1,0,0,1,1");
+        // System.out.println(converterfloat.evaluateBinary(test1, converterfloat.computeFrequencyAmplitude(converterInt.getSpringExpr(test1),springs111, 0, 1, 0.1, 1, 0) ));
+
     }
 }
