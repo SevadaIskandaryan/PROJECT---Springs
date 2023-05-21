@@ -23,23 +23,22 @@ def generate_random_mom():
 
 
 
-def append_positions(file_path, xy = [], xy_rev = [], pxy = [], pxy_rev = [], rev = False):
+def append_positions(file_path, x, y, x_rev, y_rev, px, py, px_rev, py_rev):
     try:
         with open(file_path, 'r') as file:
             data = json.load(file)
     except FileNotFoundError:
         data = {'x': [], "y" : [], "x_rev" : [], "y_rev" : [], "px" : [], "py" : [], "px_rev" : [], "py_rev" : []}
     
-    if rev == True:
-        data["x_rev"].extend([xy_rev[0]])
-        data["y_rev"].extend([xy_rev[1]])
-        data["px_rev"].extend([pxy_rev[0]])
-        data["py_rev"].extend([pxy_rev[1]])
-    else:
-        data['x'].extend([xy[0]])
-        data['y'].extend([xy[1]])
-        data['px'].extend([pxy[0]])
-        data['py'].extend([pxy[1]])
+    data["x_rev"].extend(x_rev)
+    data["y_rev"].extend(y_rev)
+    data["px_rev"].extend(px_rev)
+    data["py_rev"].extend(py_rev)
+
+    data['x'].extend(x)
+    data['y'].extend(y)
+    data['px'].extend(px)
+    data['py'].extend(py)
     
     with open(file_path, 'w') as file:
         json.dump(data, file)
@@ -73,12 +72,19 @@ def simulate_vertical_billiard(init_pos, init_mom, n_ref):
 
     num_reflection = 0
     # Simulate motion
-    dt = 0.0001
+    dt = 0.001
     x = [x0]
     y = [y0]
+
+
     px = [px0]
     py = [py0]
 
+    ref_x = []
+    ref_y = []
+    ref_px = []
+    ref_py = []
+    epsilon = 0.001
     # for i in range(max_iterations):
     while True:
 
@@ -89,7 +95,9 @@ def simulate_vertical_billiard(init_pos, init_mom, n_ref):
 
             # Check if next position is outside the circle
             distance = np.sqrt(next_x**2 + next_y**2)
-            if distance > radius:
+            if distance > radius - epsilon:
+                next_x = (radius**2 * next_x) / distance
+                next_y = (radius**2 * next_y) / distance
 
                 x_sq = next_x ** 2
                 y_sq = next_y ** 2
@@ -98,6 +106,10 @@ def simulate_vertical_billiard(init_pos, init_mom, n_ref):
 
                 num_reflection+=1
                 i = 0
+                ref_x.append(next_x)
+                ref_y.append(next_y)
+                ref_px.append(px_next)
+                ref_py.append(py_next)
             else:
                 # Update momentum due to gravity
                 px_next = px[-1]
@@ -111,7 +123,7 @@ def simulate_vertical_billiard(init_pos, init_mom, n_ref):
 
         else:
             break
-    return x, y, px, py
+    return ref_x.copy(), ref_y.copy(), ref_px.copy(), ref_py.copy()
 
 init_pos = generate_random_point()
 init_mom = generate_random_mom()
@@ -123,19 +135,26 @@ n = 10
 # Run the simulation
 x, y, px, py = simulate_vertical_billiard(init_pos, init_mom, n)
 
-
+print("reverse______")
 init_pos_rev = [x[-1], y[-1]]
 init_mom_rev = [-px[-1], -py[-1]]
+
+print(init_pos_rev)
+print(init_mom_rev)
 # Run the simulation in reverse mode
 x_rev, y_rev, px_rev, py_rev = simulate_vertical_billiard(init_pos_rev, init_mom_rev, n)
+
+#save in a file
+append_positions(file_path, x,y,x_rev,y_rev, px, py, px_rev,py_rev)
+
 
 circle = plt.Circle((0, 0), radius=1, edgecolor='black', facecolor='none')
 fig, ax = plt.subplots()
 ax.set_aspect('equal')
 ax.add_patch(circle)
 
-plt.plot(x,y)
-plt.plot(x_rev, y_rev)
+plt.plot(x,y, color = "red")
+plt.plot(x_rev, y_rev, color = "blue")
 # Plot the trajectory
 # Set the plot limits
 plt.xlim(-1.5, 1.5)
