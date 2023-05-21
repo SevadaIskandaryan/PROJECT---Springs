@@ -125,9 +125,9 @@ x, y, px, py = simulate_vertical_billiard(init_pos, init_mom, n)
 
 
 init_pos_rev = [x[-1], y[-1]]
-init_mom_rev = [px[-1], py[-1]]
+init_mom_rev = [-px[-1], -py[-1]]
 # Run the simulation in reverse mode
-x_rev, y_rev, px_rev, py_rev = simulate_vertical_billiard(init_pos_rev, init_mom, n)
+x_rev, y_rev, px_rev, py_rev = simulate_vertical_billiard(init_pos_rev, init_mom_rev, n)
 
 circle = plt.Circle((0, 0), radius=1, edgecolor='black', facecolor='none')
 fig, ax = plt.subplots()
