@@ -116,7 +116,7 @@ def get_position(in_pos, in_mom):
 steps = 4
 
 init_pos = generate_random_point()
-init_mom = [random.uniform(-1, 1),random.uniform(-1, 1)]
+init_mom = generate_random_point()
 
 print("init pos", init_pos)
 print("init_mom", init_mom)
